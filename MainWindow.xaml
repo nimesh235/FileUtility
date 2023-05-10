@@ -1,0 +1,230 @@
+﻿<Window x:Class="FileUtility.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileUtility"
+        Height="450" Width="600"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        WindowStyle="None"
+        AllowsTransparency="True" >
+
+    <Border Background="#fad7ed" CornerRadius="10" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="598*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <DockPanel  Grid.Row="0"  MouseLeftButtonDown="NavigationBarPanel_MouseLeftButtonDown" Grid.ColumnSpan="2">
+                <Border Background="#FFA68F9D" CornerRadius="10,10,0,0" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                Margin="0,0,0,0" HorizontalAlignment="Right">
+                            <Button Content="___" HorizontalAlignment="Center" 
+                                    BorderBrush="Transparent"  Background="Transparent" 
+                                     Width="40" Padding="0,0,0,0" Click="MinimizeButton_Click"  AutomationProperties.Name="__"
+                                    Style="{StaticResource TitlebarButton}"
+                                    />
+                            <Border  CornerRadius="0,10,0,0" >
+                                <Button Content="X" Background="Transparent"
+                                        Width="40" BorderBrush="Transparent"
+                                         AutomationProperties.Name="X"
+                                    Style="{StaticResource TitlebarButton}"
+                                        Click="CloseButton_Click"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </DockPanel>
+
+            <StackPanel Orientation = "Vertical" HorizontalAlignment="Left" Grid.Row="1" Margin="223,0,0,0" >
+                <Label  TextBlock.TextAlignment="Justify"
+                        TextBlock.FontSize="30"
+                        TextBlock.FontWeight="Bold"
+                        Content="File Utility"/>
+            </StackPanel>
+            <StackPanel Orientation = "Vertical" Grid.Row="2" Grid.ColumnSpan="2" >
+                <Label Content="Name:" 
+                       TextBlock.TextAlignment="Center" 
+                       Margin="80,0,0,0" 
+                       FontFamily="Verdana" 
+                       FontWeight="Bold"/>
+
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Width="450"
+                         Height="25"
+                         x:Name="NameTextBox"
+                        TextChanged="NameTextBox_TextChanged" 
+                          Style="{StaticResource MordernTextBox}" Padding="7,2.5,0,0"/>
+                <Label Content="Destination Path:" 
+                       TextBlock.TextAlignment="Center" 
+                       Margin="80,0,0,0" 
+                       FontFamily="Verdana" 
+                       FontWeight="Bold"/>
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Width="450"
+                         Height="25"
+                         x:Name="DestinationPathTextBox"
+                         AllowDrop="True"
+                         PreviewDragOver="DestinationPathTextBox_PreviewDragOver"
+                         Style="{StaticResource MordernTextBox}" Padding="5,2.5,0,0" Drop="DestinationPathTextBox_Drop"/>
+                <Label Content="Source Path:" 
+                       TextBlock.TextAlignment="Center" 
+                       Margin="80,0,0,0" 
+                       FontFamily="Verdana" 
+                       FontWeight="Bold"/>
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Width="450"
+                         Height="25"
+                         x:Name="SourcePathTextBox"
+                         Style="{StaticResource MordernTextBox}" Padding="5,2.5,0,0"/>
+                <Button x:Name = "SelectFile" 
+                        Content = "Button"
+                        Tag="Select File"
+                        Margin = "10"
+                       Background="#FFB954BD"
+                        Width="450"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource MordenButtonTheme}"
+                        AutomationProperties.Name="Select File" Click="selectfilebutton_Click" />
+
+                <ListView Height="100"
+                          Width="450" 
+                          AllowDrop="True"
+                          x:Name="FilelistView" Drop="FilelistView_Drop"
+                          >
+                </ListView>
+
+                <StackPanel Orientation = "Horizontal">
+                    <Button x:Name = "Clear" 
+                            Click="Clear_Click"
+                        Content = "Button"
+                        Tag="Clear"
+                        Margin = "75 10 5 10"
+                            Width="220"
+                       Background="#FFB954BD"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource MordenButtonTheme}"
+                        AutomationProperties.Name="Clear" />
+                    <Button x:Name = "Create" 
+                            Click="Create_Click"
+                        Content = "Button"
+                        Tag="Select File"
+                        Margin = "5 10 10 10"
+                            Width="220"
+                       Background="#FFB954BD"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource MordenButtonTheme}"
+                        AutomationProperties.Name="Create" />
+                </StackPanel>
+            </StackPanel>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="219,-182,0,0" Stroke="Black" VerticalAlignment="Top" Width="1168" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FF15B023" AutomationProperties.IsOffscreenBehavior="Default" Grid.ColumnSpan="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="-41.009"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="257,-298,0,0" Stroke="Black" VerticalAlignment="Top" Width="1168" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FF15B023" AutomationProperties.IsOffscreenBehavior="Default" Grid.ColumnSpan="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="-41.009"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="339,-210,0,0" Stroke="Black" VerticalAlignment="Top" Width="1168" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FF15B023" AutomationProperties.IsOffscreenBehavior="Default" Grid.ColumnSpan="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="-41.009"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="219,-182,0,0" Stroke="Black" VerticalAlignment="Top" Width="1168" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FF15B023" AutomationProperties.IsOffscreenBehavior="Default" Grid.ColumnSpan="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="-41.009"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="257,-298,0,0" Stroke="Black" VerticalAlignment="Top" Width="1168" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FF22CBBB" AutomationProperties.IsOffscreenBehavior="Default" Grid.ColumnSpan="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="-41.009"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="339,-210,0,0" Stroke="Black" VerticalAlignment="Top" Width="1168" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FFDEF11C" AutomationProperties.IsOffscreenBehavior="Default" Grid.ColumnSpan="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="-41.009"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="-198,324,0,0" Stroke="Black" VerticalAlignment="Top" Width="559" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FF15B023" AutomationProperties.IsOffscreenBehavior="Default" Grid.Row="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="145"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="-247,245,0,0" Stroke="Black" VerticalAlignment="Top" Width="675" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" Fill="#FF22CBBB" AutomationProperties.IsOffscreenBehavior="Default" Grid.Row="2">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="145"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="38" Margin="-131,320,0,0" Stroke="Black" VerticalAlignment="Top" Width="664" Panel.ZIndex="-10" RenderTransformOrigin="0.5,0.5" RadiusX="30" RadiusY="30" AutomationProperties.IsOffscreenBehavior="Default" Grid.Row="2" Fill="#FFDEF11C">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.252"/>
+                        <RotateTransform Angle="145"/>
+                        <TranslateTransform Y="-1.101"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+        </Grid>
+
+    </Border>
+
+</Window>
