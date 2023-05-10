@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.Windows;
-using FileUtility.Model;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Linq;
