@@ -17,8 +17,9 @@ namespace FileUtility
        
         private bool IsLogWrite = false;
         IConfiguration _configuration;
-        FileDetails fileDetails = new FileDetails();
-        string Name = "Nimesh";
+        string Name = string.Empty;
+        string DestinationPath = string.Empty;
+        String SourcePath = string.Empty;
         private AppSetting appSetting {
             get{
                 return new AppSetting();
@@ -30,12 +31,12 @@ namespace FileUtility
             InitializeComponent();
             
             _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppConfig");
-            fileDetails.Name = _configuration.GetSection("Name").Value;
-            fileDetails.DestinationPath = _configuration.GetSection("DestinationPath").Value;
-            fileDetails.SourcePath = _configuration.GetSection("SourcePath").Value;
-            NameTextBox.Text = fileDetails.Name;
-            DestinationPathTextBox.Text = fileDetails.DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + fileDetails.Name + "-";
-            SourcePathTextBox.Text = fileDetails.SourcePath;
+            Name = _configuration.GetSection("Name").Value;
+            DestinationPath = _configuration.GetSection("DestinationPath").Value;
+            SourcePath = _configuration.GetSection("SourcePath").Value;
+            NameTextBox.Text = Name;
+            DestinationPathTextBox.Text = DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-";
+            SourcePathTextBox.Text = SourcePath;
             IsLogWrite = Boolean.Parse(string.IsNullOrEmpty(_configuration.GetSection("IsLogWrite").Value) ? "False" : _configuration.GetSection("IsLogWrite").Value);
             this.DataContext = this;
         }
@@ -43,9 +44,9 @@ namespace FileUtility
         {
             if (!string.IsNullOrEmpty(NameTextBox.Text))
             {
-                fileDetails.Name = NameTextBox.Text;
-                appSetting.AddOrUpdateAppSetting("Name", fileDetails.Name);
-                DestinationPathTextBox.Text = fileDetails.DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + fileDetails.Name + "-";
+                Name = NameTextBox.Text;
+                appSetting.AddOrUpdateAppSetting("Name", Name);
+                DestinationPathTextBox.Text = DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-";
             }
         }
 
@@ -65,7 +66,7 @@ namespace FileUtility
                     if (oldFileList != null)
                         FileList = oldFileList.ToList();
 
-                    DestinationPathTextBox.Text = fileDetails.DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-" + Path.GetFileNameWithoutExtension(openFileDialog1.FileNames.First());
+                    DestinationPathTextBox.Text = DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-" + Path.GetFileNameWithoutExtension(openFileDialog1.FileNames.First());
 
                     foreach (String file in openFileDialog1.FileNames)
                     {
@@ -112,7 +113,7 @@ namespace FileUtility
             string[] files = e.Data.GetData(DataFormats.FileDrop) as string[]; // get all files droppeds  
             if (files != null && files.Any())
             {
-                DestinationPathTextBox.Text =fileDetails.DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-" + Path.GetFileNameWithoutExtension(files.First());
+                DestinationPathTextBox.Text =DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-" + Path.GetFileNameWithoutExtension(files.First());
                 foreach (String file in files)
                 {
                     FileList.Add(file);
@@ -155,7 +156,7 @@ namespace FileUtility
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            DestinationPathTextBox.Text = fileDetails.DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-";
+            DestinationPathTextBox.Text = DestinationPath + "\\" + DateTime.Now.ToString("yyyyMMdd-") + Name + "-";
             FilelistView.ItemsSource = null;
         }
 
@@ -168,7 +169,7 @@ namespace FileUtility
                 {
                    foreach (string file in Files)
                     {
-                        string destfile = file.Replace(fileDetails.SourcePath, DestinationPathTextBox.Text);
+                        string destfile = file.Replace(SourcePath, DestinationPathTextBox.Text);
                         System.IO.FileInfo destfileinfo = new System.IO.FileInfo(destfile);
                         destfileinfo.Directory.Create(); // If the directory already exists, this method does nothing.
                         File.Copy(file, destfile, true);
